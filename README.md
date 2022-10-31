@@ -2,11 +2,12 @@
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-| Technology  | Usage             |
-| ----------- | ----------------- | ------------- | --- |
-| [Sveltekit] | Svelte Framework  |
-| [UnoCSS]    | Atomic Css engine |
-| <!--        | [Vanilla Extract] | Type-safe CSS | --> |
+| Technology        | Usage               |
+| ----------------- | ------------------- |
+| [Sveltekit]       | Svelte Framework    |
+| [UnoCSS]          | Atomic Css engine   |
+| [Vanilla Extract] | Type-safe CSS       |
+| [Pocketbase]      | Open Source Backend | 
 
 ## Creating a project
 
@@ -46,3 +47,4 @@ You can preview the production build with `yarn preview`.
 [sveltekit]: https://kit.svelte.dev
 [unocss]: https://github.com/unocss/unocss
 [vanilla extract]: https://vanilla-extract.style
+[pocketbase]: https://pocketbase.io
