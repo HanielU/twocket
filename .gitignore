@@ -1,0 +1,13 @@
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+/pocketbase_0.7.9
+
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
