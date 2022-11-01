@@ -1,0 +1,35 @@
+<script lang="ts">
+  import { page } from "$app/stores";
+  import { pageFooterStyle } from "$styles/Footer.css";
+  import { pageHeader } from "$styles/Header.css";
+  import LoginBanner from "./components/LoginBanner.svelte";
+</script>
+
+<header class={pageHeader}>
+  <!-- user icon -->
+  <div class="py-2.6 px-4 flex items-center">
+    <div class="py-0.1 mr-4">
+      <a href="/">
+        <div class="i-ph-twitter-logo-fill text-(accent xl)" />
+      </a>
+    </div>
+
+    <div>
+      <h1 class="fw-semibold text-base">Home</h1>
+    </div>
+  </div>
+
+  <div class="contents" class:hidden={/^\/(auth)?$/.test($page.url.pathname)}>
+    <LoginBanner />
+  </div>
+</header>
+
+<slot />
+
+<footer
+  class={pageFooterStyle}
+  class:hidden={$page.url.pathname !== "/"}
+  border-t="~ base-content/20"
+>
+  <LoginBanner />
+</footer>

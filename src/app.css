@@ -4,9 +4,14 @@
 
 html,
 body {
-  @apply square-full overflow-x-hidden relative;
+  @apply square-full overflow-x-hidden relative bg-base-200;
 }
 
 #app {
-  @apply square-full bg-base-200 relative text-base-content;
+  @apply w-full relative text-base-content;
+}
+
+input,
+button {
+  @apply block outline-none border-none relative;
 }

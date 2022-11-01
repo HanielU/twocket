@@ -45,6 +45,7 @@ export default defineConfig({
       },
       primary: {
         DEFAULT: "hsl(352, 100%, 66%)",
+        focus: "hsl(356, 100%, 64%)",
         content: "hsl(213, 85%, 97%)",
       },
       accent: {
@@ -64,7 +65,8 @@ export default defineConfig({
       // flex-u stands for flex-utility
       // to avoid mixups with default flex utilities like flex-wrap
       /^flex-u-([a-z]+)-?([a-z]*)$/,
-      ([, justify, align]) => `flex justify-${justify} items-${align || "center"}`,
+      ([, justify, align]) =>
+        `flex justify-${justify} items-${align || "center"}`,
     ],
     // use when width and height values are the same
     [/^square-(.*)$/, ([, v]) => `h-${v} w-${v}`],

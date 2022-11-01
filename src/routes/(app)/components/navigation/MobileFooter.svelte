@@ -2,7 +2,7 @@
   import { clsx } from "clsx";
   import { page } from "$app/stores";
 
-  type FooterLinks = {
+  type FooterLink = {
     path: string;
     classes: {
       line: string;
@@ -11,7 +11,7 @@
     };
   };
 
-  const links: FooterLinks[] = [
+  const links: FooterLink[] = [
     {
       path: "/",
       classes: {
@@ -20,7 +20,7 @@
       },
     },
     {
-      path: "/search",
+      path: "/explore",
       classes: {
         line: "i-ri-search-2-line",
         fill: "i-ri-search-2-fill",

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { pageHeader } from "./Header.css";
+  import { pageHeader } from "$styles/Header.css";
 </script>
 
 <header class={pageHeader}>

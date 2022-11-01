@@ -19,10 +19,14 @@ const trpcHandle: Handle = async ({ event, resolve }) => {
 };
 
 const pocketHandle: Handle = async ({ event, resolve }) => {
-  event.locals.pocket = new PocketBase("http://127.0.0.1:8090");
+  event.locals.pocket = new PocketBase("http://127.0.0.1:8090"); // initialise client
 
-  event.locals.pocket.authStore.loadFromCookie(event.request.headers.get("cookie") || "");
+  // get users auth state from the jwt cookie stored
+  event.locals.pocket.authStore.loadFromCookie(
+    event.request.headers.get("cookie") || ""
+  );
 
+  // update user state based on authstore
   if (event.locals.pocket.authStore.isValid) {
     event.locals.user = event.locals.pocket.authStore.model;
   }
@@ -33,9 +37,11 @@ const pocketHandle: Handle = async ({ event, resolve }) => {
   // );
 
   const response = await resolve(event);
-  const exportedCookie = event.locals.pocket.authStore.exportToCookie();
-  response.headers.set("set-cookie", exportedCookie);
-  // console.log("exported:", ext);
+  response.headers.set(
+    "set-cookie",
+    event.locals.pocket.authStore.exportToCookie()
+  );
+
   return response;
 };
 

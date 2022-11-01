@@ -10,6 +10,7 @@ const config = {
   kit: {
     adapter: adapter(),
     alias: {
+      $styles: "src/lib/styles",
       $trpc: "src/trpc/",
       "trpc-sveltekit": "src/lib/server/trpc-sveltekit/",
     },
