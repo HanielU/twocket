@@ -1,14 +1,3 @@
-// alteranative import
-// import {
-//   defineConfig,
-//   extractorSvelte
-//   presetIcons,
-//   presetUno,
-//   presetAttributify,
-//   transformerDirectives,
-//   transformerVariantGroup,
-// } from "unocss";
-
 // https://github.com/unocss/unocss/tree/main/packages/vite
 // https://github.com/unocss/unocss/tree/main/packages/vite#svelte
 // https://github.com/unocss/unocss/tree/main/packages/preset-uno
@@ -17,20 +6,22 @@
 // https://github.com/unocss/unocss/tree/main/packages/transformer-directives
 // https://github.com/unocss/unocss/tree/main/packages/transformer-variant-group
 
-import { defineConfig } from "@unocss/vite";
-import { extractorSvelte } from "@unocss/core";
-import presetUno from "@unocss/preset-uno";
-import presetAttributify from "@unocss/preset-attributify";
-import presetIcons from "@unocss/preset-icons";
-import transformerDirective from "@unocss/transformer-directives";
-import transformerVariantGroup from "@unocss/transformer-variant-group";
+import {
+  defineConfig,
+  extractorSvelte,
+  presetIcons,
+  presetUno,
+  presetAttributify,
+  transformerDirectives,
+  transformerVariantGroup,
+} from "unocss";
 
 // https://github.com/unocss/unocss#configurations
 export default defineConfig({
   extractors: [extractorSvelte],
 
   // includes only (svelte or .css.ts (vanilla-extract)) files in a src folder
-  include: [/.*\/src\/.+\.(svelte|css\.ts)$/],
+  include: [/.*\/src\/.+\.svelte$/],
 
   // https://github.com/unocss/unocss#extend-theme
   theme: {
@@ -61,6 +52,11 @@ export default defineConfig({
 
   // https://github.com/unocss/unocss#shortcuts
   shortcuts: [
+    {
+      "app-header":
+        "bg-base-200/10 sticky top-0 backdrop-blur-8px mb-5 z-9999 [box-shadow:0_-8px_30px_rgba(0,_0,_0,_0.1)]",
+      "app-footer": "fixed bottom-0 left-0 w-full bg-base-200",
+    },
     [
       // flex-u stands for flex-utility
       // to avoid mixups with default flex utilities like flex-wrap
@@ -74,5 +70,5 @@ export default defineConfig({
 
   // https://github.com/unocss/unocss#using-presets
   presets: [presetUno(), presetIcons({ scale: 1.2 }), presetAttributify()],
-  transformers: [transformerDirective(), transformerVariantGroup()],
+  transformers: [transformerDirectives(), transformerVariantGroup()],
 });

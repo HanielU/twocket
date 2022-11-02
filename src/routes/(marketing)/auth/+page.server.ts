@@ -1,7 +1,7 @@
-import { trpc } from "$trpc/client";
-import { invalid, redirect } from "@sveltejs/kit";
-import { z } from "zod";
 import type { Actions, PageServerLoad } from "./$types";
+import { invalid, redirect } from "@sveltejs/kit";
+import { trpc } from "$trpc/client";
+import { z } from "zod";
 
 export const load: PageServerLoad = async ({ url, locals }) => {
   if (locals.user) {
@@ -38,7 +38,7 @@ export const actions: Actions = {
 
   login: async ({ request, locals }) => {
     const data = await request.formData();
-    const [userID, password] = ["username", "password"].map(
+    const [userID, password] = ["userid", "password"].map(
       s => data.get(s)?.toString() as string
     );
 

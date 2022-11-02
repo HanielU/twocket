@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { pageHeader } from "$styles/Header.css";
 </script>
 
-<header class={pageHeader}>
+<header class="app-header">
   <!-- user icon -->
   <div class="py-2.6 px-4 flex items-center">
     <div class="h-8 rounded-full overflow-hidden mr-4">

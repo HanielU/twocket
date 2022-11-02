@@ -7,7 +7,7 @@ Everything you need to build a Svelte project, powered by [`create-svelte`](http
 | [Sveltekit]       | Svelte Framework    |
 | [UnoCSS]          | Atomic Css engine   |
 | [Vanilla Extract] | Type-safe CSS       |
-| [Pocketbase]      | Open Source Backend | 
+| [Pocketbase]      | Open Source Backend |
 
 ## Creating a project
 

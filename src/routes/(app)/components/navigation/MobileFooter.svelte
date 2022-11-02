@@ -36,13 +36,18 @@
   ];
 </script>
 
-<footer class="fixed bottom-0 left-0 w-full bg-base-200">
+<footer class="app-footer">
   <div class="flex justify-between border-t">
     {#each links as { path, classes }}
       {@const currentPathActive = $page.url.pathname === path}
 
       <div class="py-2.9 mx-auto relative">
-        <div class={clsx("text-5.5", currentPathActive ? classes.fill : classes.line)} />
+        <div
+          class={clsx(
+            "text-5.5",
+            currentPathActive ? classes.fill : classes.line
+          )}
+        />
       </div>
     {/each}
   </div>

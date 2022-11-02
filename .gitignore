@@ -6,7 +6,8 @@ node_modules
 .env
 .env.*
 !.env.example
-/pocketbase_0.7.9
+/pocketbase*
+/.vercel*
 
 .yarn/*
 !.yarn/releases

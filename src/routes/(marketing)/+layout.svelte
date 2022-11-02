@@ -1,11 +1,9 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { pageFooterStyle } from "$styles/Footer.css";
-  import { pageHeader } from "$styles/Header.css";
   import LoginBanner from "./components/LoginBanner.svelte";
 </script>
 
-<header class={pageHeader}>
+<header class="app-header">
   <!-- user icon -->
   <div class="py-2.6 px-4 flex items-center">
     <div class="py-0.1 mr-4">
@@ -27,7 +25,7 @@
 <slot />
 
 <footer
-  class={pageFooterStyle}
+  class="app-footer"
   class:hidden={$page.url.pathname !== "/"}
   border-t="~ base-content/20"
 >

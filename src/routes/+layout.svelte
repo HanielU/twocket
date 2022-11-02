@@ -5,3 +5,8 @@
 </script>
 
 <slot />
+
+<svelte:head>
+  <meta name="theme-color" content="#f1f7fd" />
+  <title>Twitter Clone</title>
+</svelte:head>
