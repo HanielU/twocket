@@ -53,8 +53,7 @@ export default defineConfig({
   // https://github.com/unocss/unocss#shortcuts
   shortcuts: [
     {
-      "app-header":
-        "bg-base-200/10 sticky top-0 backdrop-blur-8px mb-5 z-9999 [box-shadow:0_-8px_30px_rgba(0,_0,_0,_0.1)]",
+      "app-header": "bg-base-200/10 sticky top-0 backdrop-blur-8px mb-5 z-9999",
       "app-footer": "fixed bottom-0 left-0 w-full bg-base-200",
     },
     [

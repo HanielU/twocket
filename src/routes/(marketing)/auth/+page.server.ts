@@ -1,41 +1,81 @@
 import type { Actions, PageServerLoad } from "./$types";
-import { invalid, redirect } from "@sveltejs/kit";
-import { trpc } from "$trpc/client";
+import { error, invalid, redirect } from "@sveltejs/kit";
 import { z } from "zod";
+import type { TwocketUser } from "$lib/types";
+import { ClientResponseError } from "pocketbase";
 
 export const load: PageServerLoad = async ({ url, locals }) => {
   if (locals.user) {
     throw redirect(301, "/home");
   }
 
-  const authType = (url.searchParams.get("q") || "login") as "login" | "signup";
-  return { authType };
+  const currentAuthType = (url.searchParams.get("q") || "login") as
+    | "login"
+    | "signup";
+  return { currentAuthType };
 };
 
 export const actions: Actions = {
+  // REGISTER ACTION
   register: async ({ request, locals }) => {
     const data = await request.formData();
-    const [email, password, passwordConfirm] = [
+    const [fullname, username, email, password, passwordConfirm] = [
+      "name",
+      "username",
       "email",
       "password",
       "confirm-password",
     ].map(s => data.get(s)?.toString() as string);
 
-    if (password !== passwordConfirm) return invalid(401);
+    const UserRegisterSchema = z.object({
+      fullname: z.string(),
+      username: z.string(),
+      email: z.string().email({ message: "This is not an email dawg" }),
+      password: z.string().min(4),
+      passwordConfirm: z.string().min(4),
+    });
 
     try {
-      const user = await trpc().user.create.mutate({
+      UserRegisterSchema.parse({
+        fullname,
+        username,
         email,
         password,
         passwordConfirm,
       });
-      console.log(user);
+
+      if (password !== passwordConfirm)
+        return invalid(401, { passwordMissmatch: true });
+
+      const user = (await locals.pocket.users.create({
+        email,
+        password,
+        passwordConfirm,
+      })) as TwocketUser;
+
+      await locals.pocket.records.update("profiles", user.profile.id, {
+        fullname,
+        username,
+      });
+
       await locals.pocket.users.authViaEmail(email, password);
     } catch (e) {
-      console.log((<Error>e).message);
+      console.dir(e, { depth: 10 });
+      if (e instanceof ClientResponseError) {
+        if (e.data.username.code === "validation_not_unique") {
+          return invalid(401, { usernameTaken: true });
+        } else if (e.data.email) {
+          return invalid(401);
+        }
+      } else {
+        throw error(401, "Unknown error occured");
+      }
     }
+
+    throw redirect(301, "/home");
   },
 
+  // LOGIN ACTION
   login: async ({ request, locals }) => {
     const data = await request.formData();
     const [userID, password] = ["userid", "password"].map(
@@ -47,14 +87,21 @@ export const actions: Actions = {
       password: z.string().min(4),
     });
 
-    // const emailSchema = z.string().email({ message: "This is not an email bozo" })
-    // const usernameSchema = z.string()
-
     try {
       UserLoginSchema.parse({ email: userID, password });
       await locals.pocket.users.authViaEmail(userID, password);
+      // console.log(res.token);
     } catch (e) {
       console.log((<Error>e).message);
+      return invalid(401);
     }
+
+    throw redirect(301, "/home");
+  },
+
+  logout: async ({ locals }) => {
+    // logout the user
+    locals.pocket.authStore.clear();
+    throw redirect(301, "/");
   },
 };

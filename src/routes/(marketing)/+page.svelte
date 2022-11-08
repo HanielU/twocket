@@ -1,8 +1,14 @@
-<section class="px-4">
-  <h1>Home Section</h1>
+<script>
+  import TweetCard from "$lib/components/TweetCard.svelte";
+</script>
 
-  <p>Niggas in paris</p>
-</section>
+<div>
+  <TweetCard />
+  <TweetCard />
+  <TweetCard />
+  <TweetCard />
+  <TweetCard />
+</div>
 
 <svelte:head>
   <title>Explore / Twocket</title>

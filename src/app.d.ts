@@ -4,7 +4,7 @@
 declare namespace App {
   interface Locals {
     pocket: import("pocketbase").default;
-    user: import("pocketbase").BaseAuthStore["model"];
+    user: import("$lib/types").TwocketUser /* import("pocketbase").BaseAuthStore["model"] */;
   }
   // interface Platform {}
   // interface PrivateEnv {}

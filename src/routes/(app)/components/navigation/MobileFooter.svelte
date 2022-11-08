@@ -13,7 +13,7 @@
 
   const links: FooterLink[] = [
     {
-      path: "/",
+      path: "/home",
       classes: {
         line: "i-ri-home-8-line",
         fill: "i-ri-home-8-fill text-primary",

@@ -1,33 +1,14 @@
 import { t } from "$trpc/app-router";
-import { z } from "zod";
+// import { z } from "zod";
 
 export default t.router({
-  create: t.procedure
-    .input(
-      z.object({
-        email: z.string().email(),
-        password: z.string().min(4),
-        passwordConfirm: z.string().min(4),
-      })
-    )
-    .mutation(async ({ input, ctx }) => {
-      const newUser = await ctx.locals.pocket.users
-        .create({
-          ...input,
-        })
-        .catch(e => {
-          console.log(e.message);
-          return null;
-        });
+  isLoggedIn: t.procedure.query(async ({ ctx }) => {
+    const user = ctx.locals.pocket.authStore.isValid;
+    console.log(user);
+    return !!user;
+  }),
 
-      /* const updatedProfile = await ctx.locals.pocket.records.create(
-      "profiles",
-      newUser.profile?.id,
-      {
-        name: "Try me out bro",
-      }
-    ); */
-
-      return newUser;
-    }),
+  get: t.procedure.query(async ({ ctx }) => {
+    return ctx.locals.user;
+  }),
 });

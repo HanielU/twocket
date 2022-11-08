@@ -1,48 +1,123 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
+  import { enhance } from "$app/forms";
+  import type { ActionData, PageData } from "./$types";
 
   export let data: PageData;
-  const { authType } = data;
-  const userAction = authType == "login" ? "Login" : "Sign up";
+  export let form: ActionData;
+  $: userAction = data.currentAuthType == "login" ? "Login" : "Sign up";
+  let loading = false;
+  let showPassword = false;
 </script>
 
-<div class="px-4 grid items-center h-screen absolute top-0 left-0 w-full">
+<div
+  class="px-4 grid items-center h-50vh min-h-600px absolute top-0 left-0 w-full"
+>
   <div class="w-full px-6">
     <h1 class="font-semibold text-2xl mb-5">
       {userAction}
     </h1>
 
     <form
-      class="flex flex-col gap-4 [&_>_input]:border"
+      class="flex flex-col gap-4 [&_>_input]:border max-w-sm mx-auto"
       method="post"
-      action={authType == "signup" ? "?/register" : "?/login"}
+      action={data.currentAuthType == "signup" ? "?/register" : "?/login"}
+      use:enhance={() => {
+        loading = true;
+        return async ({ update }) => {
+          await update({ reset: false });
+          loading = false;
+        };
+      }}
     >
+      <!-- shows only during sign up -->
       <input
-        class="px-4 h-3rem bg-base-100 w-full rounded-sm"
-        placeholder={authType == "login" ? "Email or Username" : "Email"}
-        name={authType == "login" ? "userid" : "email"}
+        class:hidden={data.currentAuthType !== "signup"}
+        class="px-4 h-3rem bg-base-100 w-full rounded-lg"
+        placeholder="Name"
+        name="name"
         type="text"
+        required={!(data.currentAuthType !== "signup")}
       />
+
+      <!-- shows only during sign up -->
+      <div class:hidden={data.currentAuthType !== "signup"}>
+        <input
+          class="px-4 h-3rem bg-base-100 w-full rounded-lg"
+          placeholder="Username (must be unique)"
+          name="username"
+          type="text"
+          required={!(data.currentAuthType !== "signup")}
+        />
+
+        {#if form?.usernameTaken}
+          <p>Username must be unique</p>
+        {/if}
+      </div>
 
       <input
-        class="px-4 h-3rem bg-base-100 w-full rounded-sm"
-        placeholder="Password"
-        name="password"
-        type="password"
+        class="px-4 h-3rem bg-base-100 w-full rounded-lg"
+        placeholder={data.currentAuthType == "login"
+          ? "Email or Username"
+          : "Email"}
+        name={data.currentAuthType == "login" ? "userid" : "email"}
+        type="text"
+        required
       />
 
-      {#if authType == "signup"}
+      <div class="relative">
         <input
-          class="px-4 h-3rem bg-base-100 w-full rounded-sm"
-          placeholder="Confirm Password"
-          name="confirm-password"
-          type="password"
+          class="pl-4 pr-8 h-3rem bg-base-100 w-full rounded-lg"
+          placeholder="Password"
+          name="password"
+          type={showPassword ? "text" : "password"}
+          required
         />
-      {/if}
 
-      <button class="bg-primary text-primary-content w-full py-1.8 rounded-sm">
-        {userAction}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- showPassword icon -->
+        <div
+          class="absolute right-0 top-0 h-full px-5 flex-u-center"
+          on:click={() => (showPassword = !showPassword)}
+        >
+          <div
+            class="transition-all"
+            class:i-ri-eye-close-line={!showPassword}
+            class:i-ri-eye-line={showPassword}
+          />
+        </div>
+      </div>
+
+      <!-- shows only during sign up -->
+      <input
+        class:hidden={data.currentAuthType !== "signup"}
+        class="px-4 h-3rem bg-base-100 w-full rounded-lg"
+        placeholder="Confirm Password"
+        name="confirm-password"
+        type="password"
+        required={!(data.currentAuthType !== "signup")}
+      />
+
+      <button class="bg-primary text-primary-content w-full py-1.8 rounded-lg">
+        <div class="flex-u-center">
+          {userAction}
+
+          <div class="animate-spin ml-2 hidden" class:flex={loading}>
+            <div class="i-prime-spinner" />
+          </div>
+        </div>
       </button>
+
+      <p>
+        {data.currentAuthType == "login"
+          ? "Don't have an account"
+          : "Already have an account?"}
+        <a
+          class="text-accent-focus underline"
+          href="/auth?q={data.currentAuthType == 'login' ? 'signup' : 'login'}"
+        >
+          {userAction == "Login" ? "Sign Up" : "Login"}
+        </a>
+      </p>
     </form>
   </div>
 </div>

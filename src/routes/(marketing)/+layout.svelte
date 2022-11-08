@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { page } from "$app/stores";
   import LoginBanner from "./components/LoginBanner.svelte";
+  import { page } from "$app/stores";
 </script>
 
 <header class="app-header">
