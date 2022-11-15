@@ -3,20 +3,20 @@
   import "@unocss/reset/tailwind.css"; // https://github.com/unocss/unocss#style-resetting
   import "uno.css"; // https://github.com/unocss/unocss/tree/main/packages/vite#installation
   import type { PageData } from "./$types";
-  import SignedOut from "./layouts/SignedOut.svelte";
-  import SignedIn from "./layouts/SignedIn.svelte";
+  import SignedInLayout from "./layouts/SignedIn.svelte";
+  import SignedOutLayout from "./layouts/SignedOut.svelte";
 
   export let data: PageData;
 </script>
 
 {#if data.user}
-  <SignedIn>
+  <SignedInLayout>
     <slot />
-  </SignedIn>
+  </SignedInLayout>
 {:else}
-  <SignedOut>
+  <SignedOutLayout>
     <slot />
-  </SignedOut>
+  </SignedOutLayout>
 {/if}
 
 <svelte:head>
