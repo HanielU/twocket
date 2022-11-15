@@ -1,4 +1,4 @@
-import type { User, Record as PR } from "pocketbase";
+import type { Record as PR } from "pocketbase";
 
 export type PocketRecord<Props = Record<string, unknown>> = PR & {
   [K in keyof Props]: Props[K];
@@ -21,7 +21,7 @@ export type Twock = PocketRecord<{
 
 export type TwockCollection = PocketCollection<Twock>;
 
-export interface TwocketUser extends User {
+export interface TwocketUser extends PR {
   profile: PR & {
     fullname: string;
     username: string;

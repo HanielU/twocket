@@ -3668,10 +3668,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pocketbase@npm:^0.7.4":
-  version: 0.7.4
-  resolution: "pocketbase@npm:0.7.4"
-  checksum: c1eebcbc37b8b6b31c2c7bd16aa93599300c1b806e633fd54ad71a4e9a648357ce7edfad84d8862c8bfc1a4977982679e3b41369ed59355d0385ccfbdb97489a
+"pocketbase@npm:next":
+  version: 0.8.0-rc3
+  resolution: "pocketbase@npm:0.8.0-rc3"
+  checksum: 71f1c4883eaf075a8dd5d77be6a6d0e33ed2802f791b79dff91dd3945773562df487804f41be79a6c0c2d7e8c0c863cfed79bdd7306dc919bfad89aefe496b09
   languageName: node
   linkType: hard
 
@@ -4279,7 +4279,7 @@ __metadata:
     eslint: ^8.27.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-svelte3: ^4.0.0
-    pocketbase: ^0.7.4
+    pocketbase: next
     prettier: ^2.7.1
     prettier-plugin-svelte: ^2.8.0
     svelte: ^3.53.1

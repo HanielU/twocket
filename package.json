@@ -39,7 +39,7 @@
     "@trpc/client": "^10.0.0-rc.8",
     "@trpc/server": "^10.0.0-rc.8",
     "clsx": "^1.2.1",
-    "pocketbase": "^0.7.4",
+    "pocketbase": "next",
     "zod": "^3.19.1"
   }
 }

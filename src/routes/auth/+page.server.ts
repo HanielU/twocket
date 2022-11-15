@@ -1,8 +1,8 @@
 import type { Actions, PageServerLoad } from "./$types";
-import { error, invalid, redirect } from "@sveltejs/kit";
-import { z } from "zod";
 import type { TwocketUser } from "$lib/types";
 import { ClientResponseError } from "pocketbase";
+import { error, invalid, redirect } from "@sveltejs/kit";
+import { z } from "zod";
 
 export const load: PageServerLoad = async ({ url, locals }) => {
   if (locals.user) {
@@ -47,18 +47,18 @@ export const actions: Actions = {
       if (password !== passwordConfirm)
         return invalid(401, { passwordMissmatch: true });
 
-      const user = (await locals.pocket.users.create({
+      const user = await locals.pocket.collection("users").create<TwocketUser>({
         email,
         password,
         passwordConfirm,
-      })) as TwocketUser;
+      });
 
-      await locals.pocket.records.update("profiles", user.profile.id, {
+      await locals.pocket.collection("profiles").update(user.profile.id, {
         fullname,
         username,
       });
 
-      await locals.pocket.users.authViaEmail(email, password);
+      await locals.pocket.collection("users").authWithPassword(email, password);
     } catch (e) {
       console.dir(e, { depth: 10 });
       if (e instanceof ClientResponseError) {
@@ -89,8 +89,9 @@ export const actions: Actions = {
 
     try {
       UserLoginSchema.parse({ email: userID, password });
-      await locals.pocket.users.authViaEmail(userID, password);
-      // console.log(res.token);
+      await locals.pocket
+        .collection("users")
+        .authWithPassword(userID, password);
     } catch (e) {
       console.log((<Error>e).message);
       return invalid(401);

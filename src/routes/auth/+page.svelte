@@ -1,5 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
+  import { trpc } from "$trpc/client";
   import type { ActionData, PageData } from "./$types";
 
   export let data: PageData;
@@ -7,6 +8,11 @@
   $: userAction = data.currentAuthType == "login" ? "Login" : "Sign up";
   let loading = false;
   let showPassword = false;
+
+  async function dos() {
+    const res = await trpc().user.createCollection.mutate();
+    console.log(res);
+  }
 </script>
 
 <div
@@ -119,5 +125,12 @@
         </a>
       </p>
     </form>
+
+    <button
+      class="bg-primary text-white p-(y-1 x-2) rounded-full"
+      on:click={dos}
+    >
+      Hey
+    </button>
   </div>
 </div>

@@ -13,17 +13,12 @@ export const handle: Handle = async ({ event, resolve }) => {
     event.request.headers.get("cookie") || ""
   );
 
-  console.log("hooks:", event.locals.pocket.authStore.isValid);
+  console.log("(hooks)authStoreValid:", event.locals.pocket.authStore.isValid);
 
   // update user state based on authstore
   if (event.locals.pocket.authStore.isValid) {
     event.locals.user = event.locals.pocket.authStore.model as TwocketUser;
   }
-
-  // await event.locals.pocket.admins.authViaEmail(
-  //   "hanieltobi@gmail.com",
-  //   "mWyE8HNn!7bFpxV"
-  // );
 
   const response = await createTRPCHandle({
     url: "/trpc",
