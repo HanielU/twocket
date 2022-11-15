@@ -34,7 +34,7 @@
         class:hidden={data.currentAuthType !== "signup"}
         class="px-4 h-3rem bg-base-100 w-full rounded-lg"
         placeholder="Name"
-        name="name"
+        name="fullname"
         type="text"
         required={!(data.currentAuthType !== "signup")}
       />

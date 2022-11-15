@@ -20,7 +20,7 @@ export const actions: Actions = {
   register: async ({ request, locals }) => {
     const data = await request.formData();
     const [fullname, username, email, password, passwordConfirm] = [
-      "name",
+      "fullname",
       "username",
       "email",
       "password",
