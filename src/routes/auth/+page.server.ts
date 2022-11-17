@@ -51,12 +51,14 @@ export const actions: Actions = {
         email,
         password,
         passwordConfirm,
-      });
-
-      await locals.pocket.collection("profiles").update(user.profile.id, {
         fullname,
         username,
       });
+
+      console.dir({ user }, { depth: 10 });
+
+      // await locals.pocket.collection("profiles").update(user.profile.id, {
+      // });
 
       await locals.pocket.collection("users").authWithPassword(email, password);
     } catch (e) {
@@ -64,8 +66,8 @@ export const actions: Actions = {
       if (e instanceof ClientResponseError) {
         if (e.data.username.code === "validation_not_unique") {
           return invalid(401, { usernameTaken: true });
-        } else if (e.data.email) {
-          return invalid(401);
+        } else if (e.data.email.code === "validation_invalid_email") {
+          return invalid(401, { emailTaken: true });
         }
       } else {
         throw error(401, "Unknown error occured");

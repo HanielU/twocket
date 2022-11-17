@@ -13,60 +13,67 @@ export type PocketCollection<Item extends PocketRecord> = {
 };
 
 export type Twock = PocketRecord<{
-  creator: string;
+  creator: TwocketUser;
   content: string;
-  tweet_type: "fresh_tweet" | "comment_tweet";
+  twock_type: "fresh" | "comment";
   comments: Twock[];
 }>;
 
 export type TwockCollection = PocketCollection<Twock>;
 
 export interface TwocketUser extends PR {
-  profile: PR & {
-    fullname: string;
-    username: string;
-    created_tweets: Twock[];
-    liked_tweets: Twock[];
-    bookmarked_tweets: Twock[];
-    retweets: Twock[];
-  };
+  fullname: string;
+  username: string;
+  created_twocks: Twock[];
+  liked_twocks: Twock[];
+  bookmarked_twocks: Twock[];
+  retwocks: Twock[];
+
+  // profile: PR & {
+  //   fullname: string;
+  //   username: string;
+  //   created_twocks: Twock[];
+  //   liked_twocks: Twock[];
+  //   bookmarked_twocks: Twock[];
+  //   retwocks: Twock[];
+  // };
 }
 
 // export type d = TwocketUser["profile"][''];
 
 // possible overcomplication of matters
 /* 
-type TweetType = "fresh_tweet" | "comment_tweet";
+type twockType = "fresh_twock" | "comment_twock";
 
-export type Twock<T extends TweetType> = PocketRecord<
+export type Twock<T extends twockType> = PocketRecord<
   // T extends ""?
-  T extends "fresh_tweet"
+  T extends "fresh_twock"
     ? {
         creator: string;
         content: string;
-        tweet_type: T;
-        comments: Twock<"comment_tweet">[];
+        twock_type: T;
+        comments: Twock<"comment_twock">[];
       }
     : {
         creator: string;
         content: string;
-        tweet_type: T;
-        replies: Twock<"comment_tweet">[];
+        twock_type: T;
+        replies: Twock<"comment_twock">[];
       }
 >;
 
-export type TwockCollection = PocketCollection<Twock<"fresh_tweet">>;
+export type TwockCollection = PocketCollection<Twock<"fresh_twock">>;
 
 export interface TwocketUser extends User {
   profile: PR & {
     fullname: string;
     username: string;
-    created_tweets: Twock<"comment_tweet">[];
-    liked_tweets: Twock<TweetType>[];
-    bookmarked_tweets: Twock<TweetType>[];
-    retweets: Twock<TweetType>[];
+    created_twocks: Twock<"comment_twock">[];
+    liked_twocks: Twock<twockType>[];
+    bookmarked_twocks: Twock<twockType>[];
+    retwocks: Twock<twockType>[];
   };
 }
 
-export type d = TwocketUser["profile"]['created_tweets'];
+export type d = TwocketUser["profile"]['created_twocks'];
 */

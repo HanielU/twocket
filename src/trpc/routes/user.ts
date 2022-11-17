@@ -10,9 +10,20 @@ export default t.router({
     return !!user;
   }),
 
-  get: t.procedure.query(async ({ ctx }) => {
-    return ctx.locals.user;
-  }),
+  get: t.procedure
+    .input(z.object({ username: z.string() }))
+    .query(async ({ ctx, input }) => {
+      // console.log("query:", ctx.locals.pocket.authStore.isValid);
+      return await ctx.locals.pocket
+        .collection("users")
+        .getFirstListItem<TwocketUser>(
+          `username = "${input.username}"`
+        )
+        .catch(e => {
+          // console.log(e);
+          return null;
+        });
+    }),
 
   createCollection: t.procedure.mutation(async ({ ctx }) => {
     await ctx.locals.pocket.admins.authWithPassword(
