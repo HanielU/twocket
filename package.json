@@ -12,19 +12,19 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
-    "@iconify/json": "^2.1.138",
-    "@sveltejs/adapter-auto": "^1.0.0-next.88",
-    "@sveltejs/adapter-vercel": "^1.0.0-next.81",
-    "@sveltejs/kit": "1.0.0-next.551",
-    "@typescript-eslint/eslint-plugin": "^5.43.0",
-    "@typescript-eslint/parser": "^5.43.0",
+    "@iconify/json": "^2.1.141",
+    "@sveltejs/adapter-auto": "^1.0.0-next.89",
+    "@sveltejs/adapter-vercel": "^1.0.0-next.83",
+    "@sveltejs/kit": "1.0.0-next.555",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
     "@vanilla-extract/css": "^1.9.2",
     "@vanilla-extract/vite-plugin": "^3.7.0",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "prettier": "^2.7.1",
-    "prettier-plugin-svelte": "^2.8.0",
+    "prettier-plugin-svelte": "^2.8.1",
     "svelte": "^3.53.1",
     "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",
@@ -36,10 +36,10 @@
   "type": "module",
   "packageManager": "yarn@3.2.3",
   "dependencies": {
-    "@trpc/client": "^10.0.0-rc.8",
-    "@trpc/server": "^10.0.0-rc.8",
+    "@trpc/client": "^10.0.0",
+    "@trpc/server": "^10.0.0",
     "clsx": "^1.2.1",
-    "pocketbase": "^0.8.0-rc3",
+    "pocketbase": "^0.8.0",
     "zod": "^3.19.1"
   }
 }

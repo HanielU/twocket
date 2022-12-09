@@ -10,7 +10,7 @@ export const trpc = (params?: {
   loadFetch?: LoadEvent["fetch"];
   headers?: RequestEvent["request"]["headers"];
 }) => {
-  const loadFetch = params?.loadFetch;
+  const loadFetch = params?.loadFetch; // sveltekit specific
 
   return createTRPCProxyClient<AppRouter>({
     links: [
@@ -18,11 +18,9 @@ export const trpc = (params?: {
         url: loadFetch ? "/trpc" : url,
         headers() {
           if (params?.headers) {
-            const cookie = params.headers.get("cookie");
-
             return {
               // spreading headers doesn't work, so I have to get the cookie manually
-              cookie: `${cookie}`,
+              cookie: `${params.headers.get("cookie")}`,
 
               // optional - inform server that it's an ssr request
               "x-ssr": "1",

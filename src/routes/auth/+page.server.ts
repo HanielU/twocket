@@ -2,7 +2,7 @@ import type { Actions, PageServerLoad } from "./$types";
 import type { TwocketUser } from "$lib/types";
 import { ClientResponseError } from "pocketbase";
 import { error, invalid, redirect } from "@sveltejs/kit";
-import { z } from "zod";
+import { object, string } from "zod";
 
 export const load: PageServerLoad = async ({ url, locals }) => {
   if (locals.user) {
@@ -27,12 +27,12 @@ export const actions: Actions = {
       "confirm-password",
     ].map(s => data.get(s)?.toString() as string);
 
-    const UserRegisterSchema = z.object({
-      fullname: z.string(),
-      username: z.string(),
-      email: z.string().email({ message: "This is not an email dawg" }),
-      password: z.string().min(4),
-      passwordConfirm: z.string().min(4),
+    const UserRegisterSchema = object({
+      fullname: string(),
+      username: string(),
+      email: string().email({ message: "This is not an email dawg" }),
+      password: string().min(4),
+      passwordConfirm: string().min(4),
     });
 
     try {
@@ -84,9 +84,9 @@ export const actions: Actions = {
       s => data.get(s)?.toString() as string
     );
 
-    const UserLoginSchema = z.object({
-      email: z.string().email({ message: "This is not an email dawg" }),
-      password: z.string().min(4),
+    const UserLoginSchema = object({
+      email: string().email({ message: "This is not an email dawg" }),
+      password: string().min(4),
     });
 
     try {

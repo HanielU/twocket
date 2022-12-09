@@ -6,7 +6,7 @@ declare namespace App {
     pocket: import("pocketbase").default;
     user: import("$lib/types").TwocketUser /* import("pocketbase").BaseAuthStore["model"] */;
   }
+  // interface PageData {}
+  // interface Error {}
   // interface Platform {}
-  // interface PrivateEnv {}
-  // interface PublicEnv {}
 }
